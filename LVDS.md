@@ -2,6 +2,15 @@
 总结接口相关知识
 
 
+关于LVDS电平：https://blog.csdn.net/alala120/article/details/82748337
+LVDS接口详解：https://blog.csdn.net/LinuxArmbiggod/article/details/83863479
+
+
+
+
+
+
+
 LVDS布局布线：
 	1.端接电阻：
 		LVDS在接收端端接100Ω（1% tolerance）电阻，电阻距离接收端要在500mil以内，最好在300mil以内；
@@ -17,4 +26,21 @@ LVDS布局布线：
 		5.相邻LVDS差分线对的处理：保证对于对间距在3倍线宽以上或加隔离地和地孔进行隔离。这样才能最小化串扰；
 		6.和其它信号线：最好使用不同走线层，如果必须在一层，保证3倍线宽以上的距离，最好加上隔离地或地孔进行隔离；
 		7.LVDS差分信号不可以跨平面分割：跨分割会导致阻抗不连续，尽量避免；
-		
+
+LVDS接口分类：
+	1.单路6bit LVDS: 采用单路方式传输，像素方面，对应18bit-RGB，每个亚像素6bit；
+	2.双路6bit LVDS：采用双路方式传输，像素方面，对应18bit-RGB，每个亚像素6bit；
+	3.单路8bit LVDS：采用单路方式传输，像素方面，对应24bit-RGB，每个亚像素8bit；
+	4.双路8bit LVDS：采用双路方式传输，像素方面，对应24bit-RGB，每个亚像素8bit；
+
+LVDS数据传输格式：
+	1.LVDS信号线有1条时钟lane（差分对），数条数据lane（差分对），这些加在一起是LVDS的一个Channel；
+	2.LVDS采用像素时钟，即一个时钟内传输1个像素的所有数据：
+	3.对于LCD，此时的串化因子或解串因子为7，一个时钟周期内，一条lane传输7bit数据。例如：8bit LVDS，RGB为24bit数据，HS+VS+DE为3bit数据，所以一个时钟内共有27bit数据，
+	  需要1条clock lane和4条数据lane才能完成传输；
+	4.RGB、HS、VS、DE信号的并转串分频方式，要根据LCD的datasheet决定；
+	5.LVDS两种format：FORMAT 1、 FORMAT 2。两者主要区别在于Y3通道上FORMAT 1传输的是颜色的高两位，FORMAT 2传输的是颜色的低两位。
+	  通常LCD显示有水彩，就是lvds-format设置错误，调换format即可；
+	6.LVDS 时钟周期选择：
+		1.双路LVDS时，clock周期要取LCD规格书中典型值的2倍；
+		2.单路LVDS时，clock周期取LCD规格书中的典型值即可；
