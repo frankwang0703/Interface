@@ -37,7 +37,7 @@ LVDS数据传输格式：
 	1.LVDS信号线有1条时钟lane（差分对），数条数据lane（差分对），这些加在一起是LVDS的一个Channel；  
 	2.LVDS采用像素时钟，即一个时钟内传输1个像素的所有数据：  
 	3.对于LCD，此时的串化因子或解串因子为7，一个时钟周期内，一条lane传输7bit数据。例如：8bit LVDS，RGB为24bit数据，HS+VS+DE为3bit数据，  
-	  所以 一个时钟内共有27bit数据，需要1条clock lane和4条数据lane才能完成传输；  
+	  所以一个时钟内共有27bit数据，需要1条clock lane和4条数据lane才能完成传输；  
 	4.RGB、HS、VS、DE信号的并转串分频方式，要根据LCD的datasheet决定；  
 	5.LVDS两种format：FORMAT 1、 FORMAT 2。两者主要区别在于Y3通道上FORMAT 1传输的是颜色的高两位，FORMAT 2传输的是颜色的低两位。  
 	  通常LCD显示有水彩，就是lvds-format设置错误，调换format即可；  
